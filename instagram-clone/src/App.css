@@ -9,9 +9,14 @@
 
 .app__header {
   background-color: white;
-  height: 10vh;
+  height: 5.5vh;
+  border: 1px solid hsl(0 0% 85%);
 }
 
 .app__headerImage {
   object-fit: contain;
+  height: 56%;
+  max-height: 100%;
+  max-width: 100%;
+  padding: 1em 1em 0 1em;
 }
