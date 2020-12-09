@@ -1,5 +1,5 @@
 import React from 'react';
-import Post from './Post'
+import Post from './Post';
 import './App.css';
 
 function App() {
@@ -13,9 +13,7 @@ function App() {
                         className="app__headerImage"
                     />
                 </div>
-                <div className="post">
-                    <Post />
-                </div>
+                <Post />
             </div>
         </>
     );
