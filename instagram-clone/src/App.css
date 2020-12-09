@@ -3,7 +3,13 @@
 }
 
 .app {
-  color: red;
+  background-color: hsl(0 0% 98%);
+  height: 100vh;
+}
+
+.app__header {
+  background-color: white;
+  height: 10vh;
 }
 
 .app__headerImage {
