@@ -1,4 +1,5 @@
 import React from 'react';
+import Post from './Post'
 import './App.css';
 
 function App() {
@@ -11,6 +12,9 @@ function App() {
                         alt="Instagram Logo"
                         className="app__headerImage"
                     />
+                </div>
+                <div className="post">
+                    <Post />
                 </div>
             </div>
         </>
