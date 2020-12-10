@@ -3,7 +3,6 @@ import Post from './Post';
 import './App.css';
 
 function App() {
-    // [ posts, setPosts ] = useState()
     const [posts, setPosts] = useState([
         {
             username: 'theadventureking',
