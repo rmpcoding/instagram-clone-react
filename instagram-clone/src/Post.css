@@ -1,13 +1,21 @@
+.post {
+    border: 1px solid hsl(0 0% 85%);
+    max-width: 598px;
+    margin-bottom: 60px;
+}
+
 .post__header {
     display: flex;
     align-items: center;
 }
 
-
 .post__image {
     object-fit: contain;
     width: 100%;
-    max-width: 600px;
+    /* 
+    border-top: 1px solid hsl(0 0% 85%);
+    border-bottom: 1px solid hsl(0 0% 85%);
+    */
 }
 
 .post__text {
@@ -19,3 +27,6 @@
 .post__avatar {
     margin: .5rem;
 }
+
+/* media query at 1000px */
+/* media query at 735px */
