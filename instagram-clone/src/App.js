@@ -54,7 +54,7 @@ function App() {
                 email,
                 password
             );
-            alert('yay@!!!!' + authUser.user.displayName);
+            alert('You are now logged in ' + authUser.user.displayName);
             return authUser.user.updateProfile({
                 displayName: username,
             });
@@ -63,14 +63,19 @@ function App() {
         }
     };
 
-    // const signIn = async (event) => {
-    //     event.preventDefault();
-    //     try {
-
-    //     } catch (e) {
-
-    //     }
-    // }
+    const signIn = async (event) => {
+        event.preventDefault();
+        try {
+            const authUser = await auth.signInWithEmailAndPassword(
+                email,
+                password
+            );
+            alert(`${authUser.user.displayName} you are now signed in`);
+            setOpenSignIn(false)
+        } catch (e) {
+            alert(e.message);
+        }
+    };
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -111,6 +116,56 @@ function App() {
                         className={classes.modal}
                         open={openSignIn}
                         onClose={() => setOpenSignIn(false)}
+                        closeAfterTransition
+                        BackdropComponent={Backdrop}
+                        BackdropProps={{
+                            timeout: 500,
+                        }}
+                    >
+                        <Fade in={openSignIn}>
+                            <div className={classes.paper}>
+                                <form>
+                                    <center className="app__signup">
+                                        <img
+                                            src="https://instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png"
+                                            alt="Instagram Logo"
+                                            className="app__headerImage"
+                                        />
+
+                                        <Input
+                                            type="text"
+                                            placeholder="email"
+                                            value={email}
+                                            onChange={(e) =>
+                                                setEmail(e.target.value)
+                                            }
+                                        ></Input>
+                                        <Input
+                                            type="text"
+                                            placeholder="password"
+                                            value={password}
+                                            onChange={(e) =>
+                                                setPassword(e.target.value)
+                                            }
+                                        ></Input>
+
+                                        <Button onClick={signIn} type="submit">
+                                            Sign in
+                                        </Button>
+                                    </center>
+                                </form>
+                            </div>
+                        </Fade>
+                    </Modal>
+
+                    {/* -------------------------------------------------------------------------- */}
+
+                    <Modal
+                        aria-labelledby="transition-modal-title"
+                        aria-describedby="transition-modal-description"
+                        className={classes.modal}
+                        open={open}
+                        onClose={handleClose}
                         closeAfterTransition
                         BackdropComponent={Backdrop}
                         BackdropProps={{
@@ -159,55 +214,6 @@ function App() {
                             </div>
                         </Fade>
                     </Modal>
-
-                    {/* -------------------------------------------------------------------------- */}
-
-                    <Modal
-                        aria-labelledby="transition-modal-title"
-                        aria-describedby="transition-modal-description"
-                        className={classes.modal}
-                        open={open}
-                        onClose={handleClose}
-                        closeAfterTransition
-                        BackdropComponent={Backdrop}
-                        BackdropProps={{
-                            timeout: 500,
-                        }}
-                    >
-                        <Fade in={open}>
-                            <div className={classes.paper}>
-                                <form>
-                                    <center className="app__signup">
-                                        <img
-                                            src="https://instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png"
-                                            alt="Instagram Logo"
-                                            className="app__headerImage"
-                                        />
-                                        <Input
-                                            type="text"
-                                            placeholder="email"
-                                            value={email}
-                                            onChange={(e) =>
-                                                setEmail(e.target.value)
-                                            }
-                                        ></Input>
-                                        <Input
-                                            type="text"
-                                            placeholder="password"
-                                            value={password}
-                                            onChange={(e) =>
-                                                setPassword(e.target.value)
-                                            }
-                                        ></Input>
-
-                                        <Button onClick={signUp} type="submit">
-                                            Sign In
-                                        </Button>
-                                    </center>
-                                </form>
-                            </div>
-                        </Fade>
-                    </Modal>
                 </div>
 
                 <div className="app__header">
@@ -241,9 +247,7 @@ function App() {
                         </Button>
                         <Button
                             type="button"
-                            onClick={() => {
-                                setOpenSignIn(true);
-                            }}
+                            onClick={() => setOpenSignIn(true)}
                             variant="outline"
                             color="primary"
                         >
