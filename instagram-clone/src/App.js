@@ -27,10 +27,11 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
     const [posts, setPosts] = useState([]);
+    const [open, setOpen] = useState(false);
+    const [openSignIn, setOpenSignIn] = useState(false);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
-    const [open, setOpen] = useState(false);
     const [user, setUser] = useState(null);
 
     /* -------------------------------------------------------- */
@@ -61,6 +62,15 @@ function App() {
             alert(e.message);
         }
     };
+
+    // const signIn = async (event) => {
+    //     event.preventDefault();
+    //     try {
+
+    //     } catch (e) {
+
+    //     }
+    // }
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -99,8 +109,8 @@ function App() {
                         aria-labelledby="transition-modal-title"
                         aria-describedby="transition-modal-description"
                         className={classes.modal}
-                        open={open}
-                        onClose={handleClose}
+                        open={openSignIn}
+                        onClose={() => setOpenSignIn(false)}
                         closeAfterTransition
                         BackdropComponent={Backdrop}
                         BackdropProps={{
@@ -149,6 +159,55 @@ function App() {
                             </div>
                         </Fade>
                     </Modal>
+
+                    {/* -------------------------------------------------------------------------- */}
+
+                    <Modal
+                        aria-labelledby="transition-modal-title"
+                        aria-describedby="transition-modal-description"
+                        className={classes.modal}
+                        open={open}
+                        onClose={handleClose}
+                        closeAfterTransition
+                        BackdropComponent={Backdrop}
+                        BackdropProps={{
+                            timeout: 500,
+                        }}
+                    >
+                        <Fade in={open}>
+                            <div className={classes.paper}>
+                                <form>
+                                    <center className="app__signup">
+                                        <img
+                                            src="https://instagram.com/static/images/web/mobile_nav_type_logo-2x.png/1b47f9d0e595.png"
+                                            alt="Instagram Logo"
+                                            className="app__headerImage"
+                                        />
+                                        <Input
+                                            type="text"
+                                            placeholder="email"
+                                            value={email}
+                                            onChange={(e) =>
+                                                setEmail(e.target.value)
+                                            }
+                                        ></Input>
+                                        <Input
+                                            type="text"
+                                            placeholder="password"
+                                            value={password}
+                                            onChange={(e) =>
+                                                setPassword(e.target.value)
+                                            }
+                                        ></Input>
+
+                                        <Button onClick={signUp} type="submit">
+                                            Sign In
+                                        </Button>
+                                    </center>
+                                </form>
+                            </div>
+                        </Fade>
+                    </Modal>
                 </div>
 
                 <div className="app__header">
@@ -171,14 +230,26 @@ function App() {
                         Logout
                     </Button>
                 ) : (
-                    <Button
-                        type="button"
-                        onClick={handleOpen}
-                        variant="contained"
-                        color="primary"
-                    >
-                        Sign up
-                    </Button>
+                    <div className="app__loginContainer">
+                        <Button
+                            type="button"
+                            onClick={handleOpen}
+                            variant="contained"
+                            color="primary"
+                        >
+                            Sign up
+                        </Button>
+                        <Button
+                            type="button"
+                            onClick={() => {
+                                setOpenSignIn(true);
+                            }}
+                            variant="outline"
+                            color="primary"
+                        >
+                            Sign in
+                        </Button>
+                    </div>
                 )}
 
                 {posts.map(({ id, post }) => (
