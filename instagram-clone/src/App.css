@@ -4,10 +4,12 @@
 
 .app {
   background-color: hsl(0 0% 98%);
-  height: 100vh;
+  /* height: 100vh;  */
 }
 
 .app__header {
+  position: sticky;
+  top: 0;
   background-color: white;
   height: 5.5vh;
   border: 1px solid hsl(0 0% 85%);
