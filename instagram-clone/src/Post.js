@@ -7,13 +7,14 @@ function Post({ postId, username, caption, imageUrl }) {
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
 
+
     useEffect(() => {
         let unsubscribe;
         if (postId) {
             unsubscribe = db
                 .collection('posts')
                 .doc(postId)
-                .collection('comment')
+                .collection('comments')
                 .onSnapshot((snapshot) => {
                     setComments(snapshot.docs.map((doc) => doc.data()));
                 });
@@ -25,8 +26,8 @@ function Post({ postId, username, caption, imageUrl }) {
 
     const postComment = (event) => {
         event.preventDefault();
-    }
-
+    };
+    
     return (
         <div className="post">
             <div className="post__header post__text">
@@ -44,13 +45,29 @@ function Post({ postId, username, caption, imageUrl }) {
                 <b>{username}</b> {caption}
             </h4>
 
-
-
-            
-
+            <div className="post__comments post__text">
+                {comments.map((comment) => {
+                    return <p key={postId}>
+                        <strong>{comment.username} </strong>
+                         {comment.text}
+                    </p>;
+                })}
+            </div>
+                
             <form className="post__commentBox">
-                <input className="post__input" type="text" placeholder="Add a comment..." value={comment} onChange={(e) => setComment(e.target.value)} />
-                <button className="post__button" disabled={!comment} type="submit" onClick={postComment}>
+                <input
+                    className="post__input"
+                    type="text"
+                    placeholder="Add a comment..."
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                />
+                <button
+                    className="post__button"
+                    disabled={!comment}
+                    type="submit"
+                    onClick={postComment}
+                >
                     Post
                 </button>
             </form>
