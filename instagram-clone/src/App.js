@@ -272,7 +272,7 @@ function App() {
                         ))}
                     </div>
                     {/* ------------------------RIGHT--------------------------------------------- */}
-                    <div className="app__postsRight">app__postsRight
+                    <div className="app__postsRight">
                     {user?.displayName ? (
                         <ImageUpload username={user.displayName} />
                     ) : (
