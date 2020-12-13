@@ -1,8 +1,32 @@
-import React from 'react';
-import './Post.css';
+import React, { useEffect, useState } from 'react';
+import { db } from './firebase';
 import Avatar from '@material-ui/core/Avatar';
+import './Post.css';
 
-function Post({ username, caption, imageUrl }) {
+function Post({ postId, username, caption, imageUrl }) {
+    const [comments, setComments] = useState([]);
+    const [comment, setComment] = useState('');
+
+    useEffect(() => {
+        let unsubscribe;
+        if (postId) {
+            unsubscribe = db
+                .collection('posts')
+                .doc(postId)
+                .collection('comment')
+                .onSnapshot((snapshot) => {
+                    setComments(snapshot.docs.map((doc) => doc.data()));
+                });
+        }
+        return () => {
+            unsubscribe();
+        };
+    }, [postId]);
+
+    const postComment = (event) => {
+        event.preventDefault();
+    }
+
     return (
         <div className="post">
             <div className="post__header post__text">
@@ -15,14 +39,16 @@ function Post({ username, caption, imageUrl }) {
                     <b>{username}</b>
                 </p>
             </div>
-            <img
-                className="post__image"
-                src={imageUrl}
-                alt="Instagram Post" 
-            />
+            <img className="post__image" src={imageUrl} alt="Instagram Post" />
             <h4 className="post__text">
                 <b>{username}</b> {caption}
             </h4>
+            <form>
+                <input className="post__input" type="text" placeholder="Add a comment..." value={comment} onChange={(e) => setComment(e.target.value)} />
+                <button className="post__button" disabled={!comment} type="submit" onClick={postComment}>
+                    Post
+                </button>
+            </form>
         </div>
     );
 }
