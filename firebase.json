@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "build",
+    "public": "instagram-clone/build",
     "ignore": [
       "firebase.json",
       "**/.*",
