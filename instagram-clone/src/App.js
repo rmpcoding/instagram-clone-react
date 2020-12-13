@@ -8,7 +8,6 @@ import Input from '@material-ui/core/Input';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
-import InstagramEmbed from 'react-instagram-embed';
 import './App.css';
 
 /* -------------------------------------------------------- */
@@ -258,24 +257,29 @@ function App() {
                         </div>
                     )}
                 </div>
-
                 <div className="app__posts">
-                    {posts.map(({ id, post }) => (
-                        <Post
-                            key={id}
-                            username={post.username}
-                            caption={post.caption}
-                            imageUrl={post.imageUrl}
-                        />
-                    ))}
+                    {/* ------------------------LEFT---------------------------------------------- */}
+                    <div className="app__postsLeft">
+                        {posts.map(({ id, post }) => (
+                            <Post
+                                key={id}
+                                username={post.username}
+                                caption={post.caption}
+                                imageUrl={post.imageUrl}
+                            />
+                        ))}
+                    </div>
+                    {/* ------------------------RIGHT--------------------------------------------- */}
+                    <div className="app__postsRight">app__postsRight
+                    {user?.displayName ? (
+                        <ImageUpload username={user.displayName} />
+                    ) : (
+                        <h3> please sign in to upload</h3>
+                    )}
+                    </div>
+
+
                 </div>
-
-
-                {user?.displayName ? (
-                    <ImageUpload username={user.displayName} />
-                ) : (
-                    <h3> please sign in to upload</h3>
-                )}
             </div>
         </>
     );
