@@ -8,6 +8,7 @@ import Input from '@material-ui/core/Input';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import InstagramEmbed from 'react-instagram-embed';
 import './App.css';
 
 /* -------------------------------------------------------- */
@@ -268,6 +269,7 @@ function App() {
                         />
                     ))}
                 </div>
+
 
                 {user?.displayName ? (
                     <ImageUpload username={user.displayName} />
