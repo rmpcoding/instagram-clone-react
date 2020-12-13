@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Post from './Post';
+import ImageUpload from './ImageUpload';
 import { db, auth } from './firebase';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -71,7 +72,7 @@ function App() {
                 password
             );
             alert(`${authUser.user.displayName} you are now signed in`);
-            setOpenSignIn(false)
+            setOpenSignIn(false);
         } catch (e) {
             alert(e.message);
         }
@@ -81,7 +82,6 @@ function App() {
         const unsubscribe = auth.onAuthStateChanged((user) => {
             if (user) {
                 // user has logged in
-                console.log(user);
                 setUser(user);
             } else {
                 // user has logged out
@@ -96,7 +96,7 @@ function App() {
     }, [user, username]);
 
     useEffect(() => {
-        db.collection('posts').onSnapshot((snapshot) => {
+        db.collection('posts').orderBy('timestamp', 'desc').onSnapshot((snapshot) => {
             setPosts(
                 snapshot.docs.map((doc) => ({
                     id: doc.id,
@@ -109,6 +109,13 @@ function App() {
     return (
         <>
             <div className="app">
+
+            {user?.displayName ? (
+                <ImageUpload username={user.displayName} />
+            ) : (
+                <h3> please sign in to upload</h3>
+            )}
+
                 <div>
                     <Modal
                         aria-labelledby="transition-modal-title"
@@ -223,7 +230,6 @@ function App() {
                         className="app__headerImage"
                     />
                 </div>
-                {console.log(user)}
                 {user ? (
                     <Button
                         type="button"
@@ -248,7 +254,7 @@ function App() {
                         <Button
                             type="button"
                             onClick={() => setOpenSignIn(true)}
-                            variant="outline"
+                            variant="outlined"
                             color="primary"
                         >
                             Sign in
