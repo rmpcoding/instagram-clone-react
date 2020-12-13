@@ -224,38 +224,39 @@ function App() {
                         alt="Instagram Logo"
                         className="app__headerImage"
                     />
-                </div>
-                {user ? (
-                    <Button
-                        type="button"
-                        variant="outlined"
-                        color="secondary"
-                        onClick={() => {
-                            auth.signOut();
-                        }}
-                    >
-                        Logout
-                    </Button>
-                ) : (
-                    <div className="app__loginContainer">
+
+                    {user ? (
                         <Button
                             type="button"
-                            onClick={handleOpen}
-                            variant="contained"
-                            color="primary"
-                        >
-                            Sign up
-                        </Button>
-                        <Button
-                            type="button"
-                            onClick={() => setOpenSignIn(true)}
                             variant="outlined"
-                            color="primary"
+                            color="secondary"
+                            onClick={() => {
+                                auth.signOut();
+                            }}
                         >
-                            Sign in
+                            Logout
                         </Button>
-                    </div>
-                )}
+                    ) : (
+                        <div className="app__loginContainer">
+                            <Button
+                                type="button"
+                                onClick={handleOpen}
+                                variant="contained"
+                                color="primary"
+                            >
+                                Sign up
+                            </Button>
+                            <Button
+                                type="button"
+                                onClick={() => setOpenSignIn(true)}
+                                variant="outlined"
+                                color="primary"
+                            >
+                                Sign in
+                            </Button>
+                        </div>
+                    )}
+                </div>
 
                 {posts.map(({ id, post }) => (
                     <Post
