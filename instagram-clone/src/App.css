@@ -4,7 +4,6 @@
 
 .app {
   background-color: hsl(0 0% 98%);
-  /* height: 100vh;  */
 }
 
 .app__header {
@@ -16,6 +15,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  z-index: 1;
 }
 
 .app__headerImage {

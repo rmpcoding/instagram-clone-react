@@ -30,17 +30,17 @@ function Post({ postId, user, username, caption, imageUrl }) {
 
     const postComment = async (event) => {
         event.preventDefault();
-        
-        console.log(user)
 
-        db.collection("posts").doc(postId).collection("comments").add({
+        console.log(user);
+
+        db.collection('posts').doc(postId).collection('comments').add({
             text: comment,
             username: user.displayName,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
         });
         setComment('');
     };
-    
+
     return (
         <div className="post">
             <div className="post__header post__text">
@@ -60,30 +60,34 @@ function Post({ postId, user, username, caption, imageUrl }) {
 
             <div className="post__comments post__text">
                 {comments.map((comment) => {
-                    return <p key={postId}>
-                        <strong>{comment.username} </strong>
-                         {comment.text}
-                    </p>;
+                    return (
+                        <p key={postId}>
+                            <strong>{comment.username} </strong>
+                            {comment.text}
+                        </p>
+                    );
                 })}
             </div>
-                
-            <form className="post__commentBox">
-                <input
-                    className="post__input"
-                    type="text"
-                    placeholder="Add a comment..."
-                    value={comment}
-                    onChange={(e) => setComment(e.target.value)}
-                />
-                <button
-                    className="post__button"
-                    disabled={!comment}
-                    type="submit"
-                    onClick={postComment}
-                >
-                    Post
-                </button>
-            </form>
+            
+            {user && (
+                <form className="post__commentBox">
+                    <input
+                        className="post__input"
+                        type="text"
+                        placeholder="Add a comment..."
+                        value={comment}
+                        onChange={(e) => setComment(e.target.value)}
+                    />
+                    <button
+                        className="post__button"
+                        disabled={!comment}
+                        type="submit"
+                        onClick={postComment}
+                    >
+                        Post
+                    </button>
+                </form>
+            )}
         </div>
     );
 }
